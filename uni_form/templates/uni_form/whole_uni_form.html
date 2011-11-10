@@ -1,4 +1,4 @@
-{% if form_tag %}<form {% if form_action %}action="{{ form_action }}" {% endif %}class="uniForm{% if form_class %} {{ form_class }}{% endif %}" method="{{ form_method }}"{% if form_id %} id="{{ form_id }}"{% endif %}{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>{% endif %}
+{% if form_tag %}<form action="{{ form_action|lower }}" class="uniForm{% if form_class %} {{ form_class }}{% endif %}" method="{{ form_method }}"{% if form_id %} id="{{ form_id }}"{% endif %}{% if form.is_multipart %} enctype="multipart/form-data"{% endif %}>{% endif %}
     {% if form_method|lower == 'post' %}
         {% csrf_token %}
     {% endif %}
@@ -11,13 +11,13 @@
     {% endif %}
 
     {% if inputs %}
-        <div class="buttonHolder">
+        <div class="actions">
             {% for input in inputs %}
                  <input type="{{ input.input_type }}"
                         name="{{ input.name|slugify }}"
                         value="{{ input.value }}"
                         {% ifnotequal input.input_type "hidden" %}
-                            class="{{ input.field_classes }}"
+                            class="btn {{ input.field_classes }}"
                             id="{{ input.input_type }}-id-{{ input.name|slugify }}"
                         {% endifnotequal %}
                         />
